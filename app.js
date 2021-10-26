@@ -6,6 +6,7 @@ const app = express();
 const port = 3000;
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.get('/movies?', (req, res) => {
   let result = movies.filter(movie => movie.title.includes(req.query.title))
@@ -59,6 +60,17 @@ app.delete('/movies/:id', (req, res) => {
 
   res.json(movies).status(204);
 });
+
+app.get('/setCookie', (req, res) => {
+  res.cookie('firstName', 'myFirstName',).cookie('lastName', 'myLastName');
+  res.end();
+});
+
+app.get('/readCookie', (req, res) => {
+  res.send(req.cookies)
+})
+
+//res.cookie('cookie1' : { name: 'Leo' }).cookie('cookie2' : 'Teste').send()
 
 
 
